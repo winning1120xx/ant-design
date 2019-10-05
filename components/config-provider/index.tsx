@@ -22,6 +22,7 @@ export interface ConfigConsumerProps {
   csp?: CSPConfig;
   autoInsertSpaceInButton?: boolean;
   locale?: Locale;
+  pageHeaderType?: 'pure' | 'default';
 }
 
 export const configConsumerProps = [
@@ -32,6 +33,7 @@ export const configConsumerProps = [
   'csp',
   'autoInsertSpaceInButton',
   'locale',
+  'pageHeaderType',
 ];
 
 export interface ConfigProviderProps {
@@ -42,6 +44,7 @@ export interface ConfigProviderProps {
   csp?: CSPConfig;
   autoInsertSpaceInButton?: boolean;
   locale?: Locale;
+  pageHeaderType?: 'pure' | 'default';
 }
 
 const ConfigContext = createReactContext<ConfigConsumerProps>({
@@ -74,6 +77,7 @@ class ConfigProvider extends React.Component<ConfigProviderProps> {
       csp,
       autoInsertSpaceInButton,
       locale,
+      pageHeaderType,
     } = this.props;
 
     const config: ConfigConsumerProps = {
@@ -88,6 +92,11 @@ class ConfigProvider extends React.Component<ConfigProviderProps> {
     }
     if (renderEmpty) {
       config.renderEmpty = renderEmpty;
+    }
+
+    // set pageHeader type
+    if (pageHeaderType) {
+      config.pageHeaderType = pageHeaderType;
     }
 
     return (
